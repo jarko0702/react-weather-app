@@ -60,10 +60,12 @@ export function Weather() {
 
   const requestWeather = (city: string) => {
     const url = generateApiUrl(city);
-    console.log(url);
+
     fetch(url)
       .then((response) => response.json())
       .then((result) => setWeather(result));
+
+    setInput("");
   };
 
   return (
@@ -72,6 +74,7 @@ export function Weather() {
         <TextField
           variant="standard"
           placeholder="Search..."
+          value={input}
           onChange={(e) => {
             setInput(e.target.value);
           }}
@@ -93,10 +96,12 @@ export function Weather() {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="body1">{weather?.main.temp}</Typography>
+        <Typography variant="body1">{weather?.main.temp} °C</Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="body1">description</Typography>
+        <Typography variant="body1">
+          {weather?.weather[0].description}
+        </Typography>
       </Grid>
     </Grid>
   );
