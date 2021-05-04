@@ -3,7 +3,7 @@ import { Grid, Typography } from "@material-ui/core";
 import "./weather.css";
 
 function WeatherResult(props: any) {
-  if (props.name != undefined) {
+  if (props.name !== undefined) {
     return (
       <>
         <Grid className="result" container spacing={2} alignContent="center">
