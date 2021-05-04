@@ -18,7 +18,7 @@ function WeatherResult(props: any) {
             <img
               className="image"
               src={`http://openweathermap.org/img/wn/${props.iconId}@2x.png`}
-              alt="No image found"
+              alt="Icon of weather"
             ></img>
           </Grid>
         </Grid>
