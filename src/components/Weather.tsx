@@ -1,5 +1,7 @@
-import { Grid, Typography, TextField, Button } from "@material-ui/core";
+import { Grid, TextField, Button } from "@material-ui/core";
 import React, { useState } from "react";
+import WeatherResult from "./WeatherResult";
+import "./weather.css";
 
 const generateApiUrl = (city: string) => {
   const base = "https://api.openweathermap.org/data/2.5/weather?q=";
@@ -9,7 +11,7 @@ const generateApiUrl = (city: string) => {
   return URL;
 };
 
-interface weather {
+export interface weatherInterface {
   coord: {
     lon: number;
     lat: number;
@@ -56,53 +58,48 @@ interface weather {
 
 export function Weather() {
   const [input, setInput] = useState<string>("");
-  const [weather, setWeather] = useState<weather>();
+  const [weatherState, setWeatherState] = useState<weatherInterface>();
 
   const requestWeather = (city: string) => {
     const url = generateApiUrl(city);
 
     fetch(url)
       .then((response) => response.json())
-      .then((result) => setWeather(result));
+      .then((result) => setWeatherState(result));
 
     setInput("");
   };
 
   return (
-    <Grid container spacing={2} alignContent="center">
-      <Grid item xs={12}>
-        <TextField
-          variant="standard"
-          placeholder="Search..."
-          value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-        />
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => {
-            requestWeather(input);
-          }}
-        >
-          Search
-        </Button>
+    <div className="body">
+      <Grid container spacing={2} alignContent="center">
+        <Grid item xs={12}>
+          <TextField
+            variant="standard"
+            placeholder="Search..."
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+          />
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => {
+              requestWeather(input);
+            }}
+          >
+            Search
+          </Button>
+        </Grid>
       </Grid>
 
-      <Grid item xs={12}>
-        <Typography variant="h6" component="h6">
-          {weather?.name}
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography variant="body1">{weather?.main.temp} °C</Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography variant="body1">
-          {weather?.weather[0].description}
-        </Typography>
-      </Grid>
-    </Grid>
+      <WeatherResult
+        name={weatherState?.name}
+        temperature={weatherState?.main.temp}
+        description={weatherState?.weather[0].description}
+        iconId={weatherState?.weather[0].icon}
+      />
+    </div>
   );
 }
