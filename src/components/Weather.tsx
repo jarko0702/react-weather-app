@@ -1,4 +1,4 @@
-import { Grid, Typography, TextField, Button } from "@material-ui/core";
+import { Grid, TextField, Button } from "@material-ui/core";
 import React, { useState } from "react";
 import WeatherResult from "./WeatherResult";
 import "./weather.css";
