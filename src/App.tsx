@@ -1,19 +1,18 @@
 import React from "react";
-import { Typography, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { Weather } from "./components/Weather";
 
 import "./App.css";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <Grid container spacing={2} className="App">
+    <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Typography variant="h3" component="h3">
-          Weather App
-        </Typography>
+        <Header />
       </Grid>
 
-      <Grid item xs={12}>
+      <Grid item xs={6} className="center">
         <Weather />
       </Grid>
     </Grid>

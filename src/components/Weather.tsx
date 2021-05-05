@@ -1,6 +1,6 @@
 import { Grid, TextField, Button } from "@material-ui/core";
 import React, { useState } from "react";
-import WeatherResult from "./WeatherResult";
+import WeatherResult from "./WeatherCard";
 import "./weather.css";
 
 const generateApiUrl = (city: string) => {
@@ -71,9 +71,9 @@ export function Weather() {
   };
 
   return (
-    <div className="body">
-      <Grid container spacing={2} alignContent="center">
-        <Grid item xs={12}>
+    <>
+      <Grid container spacing={2} justify="space-evenly">
+        <Grid item xs={8}>
           <TextField
             variant="standard"
             placeholder="Search..."
@@ -82,6 +82,8 @@ export function Weather() {
               setInput(e.target.value);
             }}
           />
+        </Grid>
+        <Grid item xs={4}>
           <Button
             variant="outlined"
             color="primary"
@@ -92,14 +94,17 @@ export function Weather() {
             Search
           </Button>
         </Grid>
+        <Grid container spacing={2} justify="space-evenly">
+          <Grid item xs={12} md={6}>
+            <WeatherResult
+              name={weatherState?.name}
+              temperature={weatherState?.main.temp}
+              description={weatherState?.weather[0].description}
+              iconId={weatherState?.weather[0].icon}
+            />
+          </Grid>
+        </Grid>
       </Grid>
-
-      <WeatherResult
-        name={weatherState?.name}
-        temperature={weatherState?.main.temp}
-        description={weatherState?.weather[0].description}
-        iconId={weatherState?.weather[0].icon}
-      />
-    </div>
+    </>
   );
 }

@@ -1,5 +1,5 @@
-.App {
+.center.MuiGrid-item {
   margin: auto;
   width: 50%;
-  text-align: center;
+  border: none;
 }
